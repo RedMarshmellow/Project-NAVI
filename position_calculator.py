@@ -1,3 +1,5 @@
+# YOLOv5 prediction => xmin        ymin        xmax        ymax  confidence  class    name
+
 # This dictionary will be utilized while finding the distance of objects from the user.
 # We are using the width of an object instead of its height because while capturing the
 # frame, the complete height of the object might not be captured. The width is more likely
@@ -20,15 +22,16 @@ def distance_calculation(focal_length, actual_width, perceived_width):
 def list_creation_objects_with_their_distances(predictions, objects_actual_width):
     # this list will be forwarded to the method that finds the positions of objects, where the position
     # information of the object will be appended to each dictionary element of the list.
-    objects_with_positions = []
+    objects_with_positions = [[], [], []]
+    instances = predictions[0].values.tolist()
     # this for loop is used to find the distances of the objects that are found by the ml model
-    for instance in predictions:
-        print(instance['name'])
-        actual_width = objects_actual_width[instance['name'][0]]
-        perceived_width = instance['xmax'][0] - instance['xmin'][0]
+    for instance in instances:
+        actual_width = objects_actual_width[instance[6]] # instance[6] represents the name
+        perceived_width = instance[2] - instance[0] # xmin is [0], xmax is [2]
         focal_length = 2  # take this value from the frontend
         distance = distance_calculation(focal_length, actual_width, perceived_width)
-        objects_with_positions.append({'object': instance['name'][0], 'distance': distance})
+        objects_with_positions[0].append(instance[6])
+        objects_with_positions[1].append(distance)
 
     return objects_with_positions
 
@@ -42,20 +45,21 @@ def list_creation_objects_with_their_distances(predictions, objects_actual_width
 # list_creation_objects_with_their_distances and append the position information to the object name and object distance.
 # the return value will be a list of dictionaries, each dictionary holding the object name, object distance, and object position
 def list_creation_objects_with_their_positions(predictions, objects_with_positions, FRAME_WIDTH, FRAME_HEIGHT):
-
+    instances = predictions[0].values.tolist()
+    
     # this for loop is used to find the distances of the objects that are found by the ml model
-    for idx, instance in enumerate(predictions):
+    for idx, instance in enumerate(instances):
         # the perceived width and height of the object
-        width = instance['xmax'][0] - instance['xmin'][0]
-        height = instance['ymax'][0] - instance['ymin'][0]
+        width = instance[2] - instance[0] # xmin is [0], xmax is [2]
+        height = instance[3] - instance[1] # ymin is [1], ymax is [3]
 
         # the x_center and y_center are the coordinates of the middle point of the bounding box
         # with respect to the origin which is (0,0).
         # x_center can be found by taking the average of
         # xmin which is the coordinate of the top left point of the bounding box with respect to the origin
         # and the top right point. the top right is equal to top left plus the width. same logic for y_center.
-        x_center = ((2 * instance['xmin'][0]) + (width)) / 2
-        y_center = ((2 * instance['ymin'][0]) + (height)) / 2
+        x_center = ((2 * instance[0]) + (width)) / 2
+        y_center = ((2 * instance[1]) + (height)) / 2
 
         if (x_center <= (FRAME_WIDTH / 3)) and (y_center <= FRAME_HEIGHT / 3):
             position = "TOP LEFT"
@@ -76,7 +80,7 @@ def list_creation_objects_with_their_positions(predictions, objects_with_positio
         else:
             position = "BOTTOM RIGHT"
 
-        objects_with_positions[idx]["position"] = position
+        objects_with_positions[2].append(position)
 
     return objects_with_positions
 
