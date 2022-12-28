@@ -4,8 +4,10 @@
 # We are using the width of an object instead of its height because while capturing the
 # frame, the complete height of the object might not be captured. The width is more likely
 # to be appearing in full length.
-# 'motorcycle': ,'traffic light': , 'bench': ,'dog': , 'cat': ,  'bed': , 'dining_table': ,
-objects_actual_width = {'person': 38.5, 'tv':5, 'bicycle': 175, 'couch': 152, 'bus': 1200, 'car': 448, 'chair': 46}
+objects_actual_width = {'person': 38.5, 'tv': 5, 'bicycle': 175, 'couch': 152, 'bus': 1200, 'car': 448, 'chair': 46,
+                        'motorcycle': 221,
+                        'traffic light': 40, 'bed': 141, 'bench': 114, 'dining_table': 160, 'dog': 84, 'cat': 38}
+
 
 # this function will calculate the distance of the object from the user
 # by using the values of the focal_length, which will be given from the frontend,
@@ -14,6 +16,7 @@ objects_actual_width = {'person': 38.5, 'tv':5, 'bicycle': 175, 'couch': 152, 'b
 def distance_calculation(focal_length, actual_width, perceived_width):
     distance = focal_length * (actual_width / perceived_width)
     return distance
+
 
 # this function will take the prediction list from the ML model, which contains all the
 # objects detected in a given frame. It also gets the actual_width of all the objects, which
@@ -26,11 +29,11 @@ def list_creation_objects_with_their_distances(predictions, objects_actual_width
     instances = predictions[0].values.tolist()
     # this for loop is used to find the distances of the objects that are found by the ml model
     for instance in instances:
-        actual_width = objects_actual_width[instance[6]] # instance[6] represents the name
-        perceived_width = instance[2] - instance[0] # xmin is [0], xmax is [2]
+        actual_width = objects_actual_width[instance[6]]  # instance[6] represents the name
+        perceived_width = instance[2] - instance[0]  # xmin is [0], xmax is [2]
         focal_length = 2  # take this value from the frontend
         distance = distance_calculation(focal_length, actual_width, perceived_width)
-        objects_with_positions[0].append(instance[6])
+        objects_with_positions[0].append(instance[6].capitalize())
         objects_with_positions[1].append(distance)
 
     return objects_with_positions
@@ -46,12 +49,12 @@ def list_creation_objects_with_their_distances(predictions, objects_actual_width
 # the return value will be a list of dictionaries, each dictionary holding the object name, object distance, and object position
 def list_creation_objects_with_their_positions(predictions, objects_with_positions, FRAME_WIDTH, FRAME_HEIGHT):
     instances = predictions[0].values.tolist()
-    
+
     # this for loop is used to find the distances of the objects that are found by the ml model
     for idx, instance in enumerate(instances):
         # the perceived width and height of the object
-        width = instance[2] - instance[0] # xmin is [0], xmax is [2]
-        height = instance[3] - instance[1] # ymin is [1], ymax is [3]
+        width = instance[2] - instance[0]  # xmin is [0], xmax is [2]
+        height = instance[3] - instance[1]  # ymin is [1], ymax is [3]
 
         # the x_center and y_center are the coordinates of the middle point of the bounding box
         # with respect to the origin which is (0,0).
@@ -62,32 +65,34 @@ def list_creation_objects_with_their_positions(predictions, objects_with_positio
         y_center = ((2 * instance[1]) + (height)) / 2
 
         if (x_center <= (FRAME_WIDTH / 3)) and (y_center <= FRAME_HEIGHT / 3):
-            position = "TOP LEFT"
+            position = "Top left"
         elif (x_center <= (FRAME_WIDTH / 3)) and (y_center <= (FRAME_HEIGHT / 3) * 2):
-            position = "CENTER LEFT"
+            position = "Center left"
         elif (x_center <= (FRAME_WIDTH / 3)) and (y_center <= FRAME_HEIGHT):
-            position = "BOTTOM LEFT"
+            position = "Bottom left"
         elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= FRAME_HEIGHT / 3):
-            position = "TOP CENTER"
+            position = "Top center"
         elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= (FRAME_HEIGHT / 3) * 2):
-            position = "CENTER CENTER"
+            position = "Center center"
         elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= FRAME_HEIGHT):
-            position = "BOTTOM CENTER"
+            position = "Bottom center"
         elif (y_center <= FRAME_HEIGHT / 3):
-            position = "TOP RIGHT"
+            position = "Top right"
         elif (y_center <= (FRAME_HEIGHT / 3) * 2):
-            position = "CENTER RIGHT"
+            position = "Center right"
         else:
-            position = "BOTTOM RIGHT"
+            position = "Bottom right"
 
         objects_with_positions[2].append(position)
 
     return objects_with_positions
+
 
 # this function first performs distance calculation and then performs position calculation (top left, buttom right, etc).
 # its return value is a list of objects with their names, distances from the users, and position with respect to the user.
 # e.g. {'object': car, 'distance': 2.5 meters, 'position': top left}
 def calculate_position(predictions, objects_actual_width, FRAME_WIDTH, FRAME_HEIGHT):
     objects_with_positions = list_creation_objects_with_their_distances(predictions, objects_actual_width)
-    objects_with_positions = list_creation_objects_with_their_positions(predictions, objects_with_positions, FRAME_WIDTH, FRAME_HEIGHT)
+    objects_with_positions = list_creation_objects_with_their_positions(predictions, objects_with_positions,
+                                                                        FRAME_WIDTH, FRAME_HEIGHT)
     return objects_with_positions
