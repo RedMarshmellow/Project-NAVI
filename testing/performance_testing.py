@@ -13,11 +13,11 @@ class MyUser(HttpUser):
         # since the ml model needs an image for performing predictions,
         # we need to send an image, which is from our dataset, in the post request.
 
-        file_path = "../../Dataset/images/000000.png"
+        file_path = "../dataset/000007.png"
         # Open the image file
         with open(file_path, "rb") as file:
             # Create a dictionary with the file data
-            files = {"image": file}
+            files = {"frame": file}
 
             # Send the POST request with the image file
             self.client.post("/predict", files=files)
