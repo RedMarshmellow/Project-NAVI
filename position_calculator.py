@@ -123,7 +123,7 @@ def list_creation_objects_with_their_distances(predictions):
         perceived_width = box[2]
         focal_length = 200
         distance = distance_calculation(focal_length, actual_width, perceived_width)
-        objects_with_positions[1].append(distance.item())
+        objects_with_positions[1].append(distance.ceil().item())
 
     return objects_with_positions
 
