@@ -3,8 +3,6 @@
 # We are using the width of an object instead of its height because while capturing the
 # frame, the complete height of the object might not be captured. The width is more likely
 # to be appearing in full length.
-# 'motorcycle': ,'traffic light': , 'bench': ,'dog': , 'cat': ,  'bed': , 'dining_table': ,
-
 object_labels = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
                  'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
                  'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase',
@@ -139,7 +137,6 @@ def list_creation_objects_with_their_distances(predictions):
 # list_creation_objects_with_their_distances and append the position information to the object name and object distance.
 # the return value will be a list of dictionaries, each dictionary holding the object name, object distance, and object position
 def list_creation_objects_with_their_positions(predictions, objects_with_positions, FRAME_WIDTH, FRAME_HEIGHT):
-    # instances = predictions[0].values.tolist()
 
     # this for loop is used to find the distances of the objects that are found by the ml model
     for cls, box in predictions:
@@ -152,41 +149,6 @@ def list_creation_objects_with_their_positions(predictions, objects_with_positio
             position = "RIGHT"
         objects_with_positions[2].append(position)
     return objects_with_positions
-    # for idx, instance in enumerate(instances):
-    #     # the perceived width and height of the object
-    #     width = instance[2] - instance[0]  # xmin is [0], xmax is [2]
-    #     height = instance[3] - instance[1]  # ymin is [1], ymax is [3]
-    #
-    #     # the x_center and y_center are the coordinates of the middle point of the bounding box
-    #     # with respect to the origin which is (0,0).
-    #     # x_center can be found by taking the average of
-    #     # xmin which is the coordinate of the top left point of the bounding box with respect to the origin
-    #     # and the top right point. the top right is equal to top left plus the width. same logic for y_center.
-    #     x_center = ((2 * instance[0]) + (width)) / 2
-    #     y_center = ((2 * instance[1]) + (height)) / 2
-    #
-    #     if (x_center <= (FRAME_WIDTH / 3)) and (y_center <= FRAME_HEIGHT / 3):
-    #         position = "TOP LEFT"
-    #     elif (x_center <= (FRAME_WIDTH / 3)) and (y_center <= (FRAME_HEIGHT / 3) * 2):
-    #         position = "CENTER LEFT"
-    #     elif (x_center <= (FRAME_WIDTH / 3)) and (y_center <= FRAME_HEIGHT):
-    #         position = "BOTTOM LEFT"
-    #     elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= FRAME_HEIGHT / 3):
-    #         position = "TOP CENTER"
-    #     elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= (FRAME_HEIGHT / 3) * 2):
-    #         position = "CENTER CENTER"
-    #     elif (x_center <= (FRAME_WIDTH / 3) * 2) and (y_center <= FRAME_HEIGHT):
-    #         position = "BOTTOM CENTER"
-    #     elif (y_center <= FRAME_HEIGHT / 3):
-    #         position = "TOP RIGHT"
-    #     elif (y_center <= (FRAME_HEIGHT / 3) * 2):
-    #         position = "CENTER RIGHT"
-    #     else:
-    #         position = "BOTTOM RIGHT"
-    #
-    #     objects_with_positions[2].append(position)
-    #
-    # return objects_with_positions
 
 
 # this function first performs distance calculation and then performs position calculation (top left, buttom right,
