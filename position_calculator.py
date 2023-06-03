@@ -1,3 +1,4 @@
+import torch
 
 # This dictionary will be utilized while finding the distance of objects from the user.
 # We are using the width of an object instead of its height because while capturing the
@@ -123,7 +124,7 @@ def list_creation_objects_with_their_distances(predictions):
         perceived_width = box[2]
         focal_length = 200
         distance = distance_calculation(focal_length, actual_width, perceived_width)
-        objects_with_positions[1].append(distance.ceil().item())
+        objects_with_positions[1].append(round(distance.item(),1))
 
     return objects_with_positions
 
