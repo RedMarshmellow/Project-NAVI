@@ -1,5 +1,3 @@
-import torch
-
 # This dictionary will be utilized while finding the distance of objects from the user.
 # We are using the width of an object instead of its height because while capturing the
 # frame, the complete height of the object might not be captured. The width is more likely

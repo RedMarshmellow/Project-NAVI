@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6765825b-6bd3-4d00-9508-0a2aa18387aa" name="Changes" comment="">
+    <list default="true" id="6765825b-6bd3-4d00-9508-0a2aa18387aa" name="Changes" comment="cleaning up">
       <change beforePath="$PROJECT_DIR$/.idea/Project-NAVI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project-NAVI.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/performance_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/performance_testing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/position_calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/position_calculator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685266016899</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="cleaning up">
+      <created>1685813139403</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685813139403</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,6 +103,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finished back-end + API implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished back-end + API implementation" />
+    <MESSAGE value="cleaning up" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning up" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Project_NAVI_upstream$performance_testing.coverage" NAME="performance_testing Coverage Results" MODIFIED="1685814748511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_NAVI$performance_testing.coverage" NAME="performance_testing Coverage Results" MODIFIED="1685259170316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_NAVI$create_api_for_model_flask.coverage" NAME="create_api_for_model_flask Coverage Results" MODIFIED="1685265951130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_NAVI_upstream$create_api_for_model_flask.coverage" NAME="create_api_for_model_flask Coverage Results" MODIFIED="1685814965364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
