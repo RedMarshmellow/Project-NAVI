@@ -28,10 +28,10 @@ def logging_after(response):
 
 @navi_app.route('/predict', methods=["GET", "POST"])
 def predict():
-    if request.method == "GET":
+    if request.method != "POST":
         return "Please send post request"
 
-    elif request.method == "POST":
+    else:
         frame = request.files.get('frame')  # get the frame sent by the API request
         im_bytes = frame.read()  # convert the file into byte stream
         image = PIL.Image.open(io.BytesIO(im_bytes))  # convert the byte stream into
