@@ -1,4 +1,4 @@
-Pillow~=9.5.0
+Pillow~=10.0.1
 Flask~=2.3.2
 ultralytics~=8.0.109
 locust~=2.15.1
